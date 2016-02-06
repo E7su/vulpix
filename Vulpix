@@ -1,0 +1,74 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import csv
+# import time
+
+print
+print "Hail Mary!"
+print
+
+def raichu(kalendar):
+    for a in range (len(kalendar)):
+        if kalendar[2] != ".":
+            # time = kalendar[11:16]
+            year = kalendar[:4]  
+            month = kalendar[5:7]
+            day = kalendar[8:10]
+            kalendar = day + "." + month + "." + year + " "  # + time
+        elif kalendar[2] == ".":  # and len(kalendar) > 10:
+            kalendar = kalendar[:10]
+    return kalendar
+
+pikachu = 0
+
+with open('totoro.csv', 'rb') as f:
+    reader = csv.reader(f)
+    for row in reader:
+        date_otkl_am = date_otkl_ak = date_login_am = date_login_ak = date_podkl_ak = date_podkl_am = ""
+        # print row
+        # snorlax = round(time.clock(),1)
+
+# //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        lena = len(str(row))                          # for reading cycle ';'
+        m = 0
+        for i in range(13, lena):
+            srez = tmp = str(row)
+            if srez[i] == ";":
+                m = m + 1                             # counter ';'
+                 #if tmp[i+1] != ";":
+                if m == 1:
+                    k_1 = i
+                    date_podkl_am = tmp
+                    date_podkl_am = date_podkl_am[13:i]
+                    date_podkl_am = raichu(date_podkl_am)
+                elif m == 2:
+                    k_2 = i
+                    date_login_am = tmp[k_1+1:i]
+                    date_login_am = raichu(date_login_am)
+                elif m == 3:
+                    k_3 = i
+                    date_otkl_am = tmp[k_2+1:i]
+                    date_otkl_am = raichu(date_otkl_am)
+                elif m == 5:
+                    k_5 = i
+                elif m == 6:
+                    k_6 = i
+                    date_podkl_ak = tmp[k_5+1:i]
+                    date_podkl_ak = raichu(date_podkl_ak)
+                elif m == 7:
+                    k_7 = i
+                    date_login_ak = tmp[k_6+1:i]
+                    date_login_ak = raichu(date_login_ak)
+                elif m == 8:
+                    date_otkl_ak = tmp[k_7+1:i]
+                    date_otkl_ak = raichu(date_otkl_ak)
+                    
+                    super_date = "01.12.2015 00:00"
+                    if date_podkl_ak < date_podkl_am and date_login_ak < date_podkl_am and\
+                    date_podkl_ak != "" and date_login_ak != "" and\
+                    date_login_am != "" and date_login_am > date_podkl_am and date_login_ak < raichu(super_date):
+                        pikachu = pikachu + 1
+                        
+    print "pika-pika: ", pikachu
