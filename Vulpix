@@ -3,36 +3,40 @@
 
 import csv
 
-pikachu = 0
-m = 0
-super_date = "01.12.2015 00:00"
-
 def raichu(kalendar):
     for a in range(len(kalendar)):
-        if kalendar[2] == ".":   # 2
-            year = kalendar[6:10]  #
-            month = kalendar[3:5]
-            day = kalendar[:2]
-            kalendar = year + "-" + month + "-" + day
-        elif kalendar[2] != "." and len(kalendar)>=10:
+        if kalendar[2] != ".":
             kalendar = kalendar[:10]
-        else:
-            kalendar = kalendar                      # because I can
-
+            year = kalendar[:4]
+            month = kalendar[5:7]
+            day = kalendar[8:10]
+            kalendar = year + ":" + month + ":" + day
+        elif kalendar[2] == ".":
+            kalendar = kalendar[:10]
+            day = kalendar[:2]
+            month = kalendar[3:5]
+            year = kalendar[6:10]
+            kalendar = year + ":" + month + ":" + day
     return kalendar
-
+    
+jan = feb = mar = apr = may = jun = jul = aug = sep = okt = nov = dec = 0
+pikachu = 0
+super_date = "01.12.2015 00:00"
+super_date_1 = "01.01.2015 00:00"
 super_date = raichu(super_date)
+super_date_1 = raichu(super_date_1)
 
 with open('totoro.csv', 'rb') as f:
     reader = csv.reader(f)
     for row in reader:
-        print
-        print "======================================================================================="
-        print row
-        print
+       # print
+       # print "======================================================================================="
+       # print row
+       # print
 
         lena = len(str(row))                          # For reading circle ';'
-        m = k_1 = k_2 = k_3 = k_5 = k_6 = k_7 = 0
+        m = 0
+        k_1 = k_2 = k_5 = k_6 = k_7 = 0
         date_login_am = date_login_ak = date_podkl_am = date_podkl_ak = date_otkl_am = date_otkl_ak = ""
 
         for i in range(11, lena):
@@ -49,7 +53,6 @@ with open('totoro.csv', 'rb') as f:
                     date_login_am = tmp[k_1+1:i]
                     date_login_am = raichu(date_login_am)
                 elif m == 3:
-                    k_3 = i
                     date_otkl_am = tmp[k_2+1:i]
                     date_otkl_am = raichu(date_otkl_am)
                 elif m == 6:
@@ -58,7 +61,6 @@ with open('totoro.csv', 'rb') as f:
                     k_6 = i
                     date_podkl_ak = tmp[k_5+1:i]
                     date_podkl_ak = raichu(date_podkl_ak)
-                    print
                 elif m == 8:
                     k_7 = i
                     date_login_ak = tmp[k_6+1:i]
@@ -67,10 +69,47 @@ with open('totoro.csv', 'rb') as f:
                     date_otkl_ak = tmp[k_7+1:i]
                     date_otkl_ak = raichu(date_otkl_ak)
 
-                    if date_podkl_ak < date_podkl_am and date_login_ak < date_podkl_am and date_podkl_ak != ""\
-                    and date_login_ak != "" and date_login_am != "" and date_login_am > date_podkl_am\
-                    and date_login_ak < super_date:
+                    if date_podkl_ak < date_podkl_am and date_login_ak < date_podkl_am and\
+                    date_podkl_ak != "" and date_login_ak != "" and date_login_am != "" and\
+                    date_login_am > date_podkl_am and date_login_ak < raichu(super_date)\
+                    and date_login_ak >= super_date_1:
+
+                        s = date_login_ak[5:7]
+                        if s == "01":
+                            jan = jan + 1
+                        elif s == "02":
+                            feb = feb + 1
+                        elif s == "03":
+                            mar = mar + 1
+                        elif s == "04":
+                            apr = apr + 1
+                        elif s == "05":
+                            may = may + 1
+                        elif s == "06":
+                            jun = jun + 1
+                        elif s == "07":
+                            jul = jul + 1
+                        elif s == "08":
+                            aug = aug + 1
+                        elif s == "09":
+                            sep = sep + 1
+                        elif s == "10":
+                            okt = okt + 1
+                        elif s == "11":
+                            nov = nov + 1
 
                         pikachu = pikachu + 1
 
     print "pika-pika: ", pikachu
+
+    print "jan:", jan
+    print "feb:", feb
+    print "mar:", mar
+    print "apr:", apr
+    print "may:", may
+    print "jun:", jun
+    print "jul:", jul
+    print "aug:", aug
+    print "sep:", sep
+    print "okt:", okt
+    print "nov:", nov
