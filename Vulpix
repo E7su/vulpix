@@ -26,7 +26,7 @@ super_date_1 = "01.01.2015 00:00"
 super_date = raichu(super_date)
 super_date_1 = raichu(super_date_1)
 
-with open('totoro.csv', 'rb') as f:
+with open('totoro.csv', 'r') as f:
     reader = csv.reader(f)
     for row in reader:
        # print
@@ -42,7 +42,7 @@ with open('totoro.csv', 'rb') as f:
         for i in range(11, lena):
             srez = tmp = str(row)
             if srez[i] == ";":
-                m = m + 1                             # Counter ';'
+                m += 1                             # Counter ';'
                 if m == 1:
                     k_1 = i
                     date_podkl_am = tmp
@@ -75,41 +75,41 @@ with open('totoro.csv', 'rb') as f:
                     and date_login_ak >= super_date_1:
 
                         s = date_login_ak[5:7]
-                        if s == "01":
-                            jan = jan + 1
+                        if   s == "01":
+                            jan += 1
                         elif s == "02":
-                            feb = feb + 1
+                            feb += 1
                         elif s == "03":
-                            mar = mar + 1
+                            mar += 1
                         elif s == "04":
-                            apr = apr + 1
+                            apr += 1
                         elif s == "05":
-                            may = may + 1
+                            may += 1
                         elif s == "06":
-                            jun = jun + 1
+                            jun += 1
                         elif s == "07":
-                            jul = jul + 1
+                            jul += 1
                         elif s == "08":
-                            aug = aug + 1
+                            aug += 1
                         elif s == "09":
-                            sep = sep + 1
+                            sep += 1
                         elif s == "10":
-                            okt = okt + 1
+                            okt += 1
                         elif s == "11":
-                            nov = nov + 1
+                            nov += 1
 
-                        pikachu = pikachu + 1
+                        pikachu += 1
 
-    print "pika-pika: ", pikachu
+    print ("pika-pika: ", pikachu)
 
-    print "jan:", jan
-    print "feb:", feb
-    print "mar:", mar
-    print "apr:", apr
-    print "may:", may
-    print "jun:", jun
-    print "jul:", jul
-    print "aug:", aug
-    print "sep:", sep
-    print "okt:", okt
-    print "nov:", nov
+    print("jan:", jan)
+    print("feb:", feb)
+    print("mar:", mar)
+    print("apr:", apr)
+    print("may:", may)
+    print("jun:", jun)
+    print("jul:", jul)
+    print("aug:", aug)
+    print("sep:", sep)
+    print("okt:", okt)
+    print("nov:", nov)
