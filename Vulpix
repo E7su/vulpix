@@ -1,115 +1,79 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding: utf-8
 
-import csv
+import MySQLdb
+import string
 
-def raichu(kalendar):
-    for a in range(len(kalendar)):
-        if kalendar[2] != ".":
-            kalendar = kalendar[:10]
-            year = kalendar[:4]
-            month = kalendar[5:7]
-            day = kalendar[8:10]
-            kalendar = year + ":" + month + ":" + day
-        elif kalendar[2] == ".":
-            kalendar = kalendar[:10]
-            day = kalendar[:2]
-            month = kalendar[3:5]
-            year = kalendar[6:10]
-            kalendar = year + ":" + month + ":" + day
-    return kalendar
-    
-jan = feb = mar = apr = may = jun = jul = aug = sep = okt = nov = dec = 0
-pikachu = 0
-super_date = "01.12.2015 00:00"
-super_date_1 = "01.01.2015 00:00"
-super_date = raichu(super_date)
-super_date_1 = raichu(super_date_1)
 
-with open('totoro.csv', 'r') as f:
-    reader = csv.reader(f)
-    for row in reader:
-       # print
-       # print "======================================================================================="
-       # print row
-       # print
+# распаковка строки, в которой поля записаны с разделителем ";"
+def unpack_line(line):
+    line = string.replace(line, "'", "")
+    els = string.split(line, ";")
+    # выделяем имя, эмейл, адрес и телефон
+    cus = els[0]
+    code_pu = els[1]
+    pu = els[2]
+    email = els[3]
+    tel = els[4]
+    date_login_ak = els[5]
+    date_last_login_ak = els[6]
+    date_login_aml = els[7]
+    date_login_am = els[8]
+    date_last_login_aml = els[9]
+    date_last_login_am = els[10]
+    action = els[11]
+    lite_full = els[12]
+    ukd_chennel = els[13]
+    action_date = els[14]
+    action_execution_chennel = els[15]
+    print 'Slenderman'
+    return cus, code_pu, pu, email, tel, date_login_ak, date_last_login_ak, date_login_aml, date_login_am, \
+           date_last_login_aml, date_last_login_am, action, lite_full, \
+           ukd_chennel, action_date, action_execution_chennel
 
-        lena = len(str(row))                          # For reading circle ';'
-        m = 0
-        k_1 = k_2 = k_5 = k_6 = k_7 = 0
-        date_login_am = date_login_ak = date_podkl_am = date_podkl_ak = date_otkl_am = date_otkl_ak = ""
 
-        for i in range(11, lena):
-            srez = tmp = str(row)
-            if srez[i] == ";":
-                m += 1                             # Counter ';'
-                if m == 1:
-                    k_1 = i
-                    date_podkl_am = tmp
-                    date_podkl_am = date_podkl_am[11:i]
-                    date_podkl_am = raichu(date_podkl_am)
-                elif m == 2:
-                    k_2 = i
-                    date_login_am = tmp[k_1+1:i]
-                    date_login_am = raichu(date_login_am)
-                elif m == 3:
-                    date_otkl_am = tmp[k_2+1:i]
-                    date_otkl_am = raichu(date_otkl_am)
-                elif m == 6:
-                    k_5 = i
-                elif m == 7:
-                    k_6 = i
-                    date_podkl_ak = tmp[k_5+1:i]
-                    date_podkl_ak = raichu(date_podkl_ak)
-                elif m == 8:
-                    k_7 = i
-                    date_login_ak = tmp[k_6+1:i]
-                    date_login_ak = raichu(date_login_ak)
-                elif m == 9:
-                    date_otkl_ak = tmp[k_7+1:i]
-                    date_otkl_ak = raichu(date_otkl_ak)
+# подключаемся к базе данных
+db = MySQLdb.connect(host="localhost", user="root", passwd="PASSWORD", db="Vulpix", charset='utf8')
+# формируем курсор, с помощью которого можно исполнять SQL-запросы
+cursor = db.cursor()
 
-                    if date_podkl_ak < date_podkl_am and date_login_ak < date_podkl_am and\
-                    date_podkl_ak != "" and date_login_ak != "" and date_login_am != "" and\
-                    date_login_am > date_podkl_am and date_login_ak < raichu(super_date)\
-                    and date_login_ak >= super_date_1:
+# открываем исходный csv-файл
+f = open("Vulpix.csv", "r")
+# представляем его в виде массива строк
+lines = f.readlines()
 
-                        s = date_login_ak[5:7]
-                        if   s == "01":
-                            jan += 1
-                        elif s == "02":
-                            feb += 1
-                        elif s == "03":
-                            mar += 1
-                        elif s == "04":
-                            apr += 1
-                        elif s == "05":
-                            may += 1
-                        elif s == "06":
-                            jun += 1
-                        elif s == "07":
-                            jul += 1
-                        elif s == "08":
-                            aug += 1
-                        elif s == "09":
-                            sep += 1
-                        elif s == "10":
-                            okt += 1
-                        elif s == "11":
-                            nov += 1
+for i, line in enumerate(lines):
+    # извлекаем данные из строки
+    if i == 0:
+        continue
 
-                        pikachu += 1
+    cus, code_pu, pu, email, tel, date_login_ak, date_last_login_ak, date_login_aml, date_login_am, \
+    date_last_login_aml, date_last_login_am, action, lite_full, ukd_chennel, \
+    action_date, action_execution_chennel = unpack_line(line)
+    # подставляем эти данные в SQL-запрос
+    sql = """INSERT INTO Vulpix(cus, code_pu, pu, email, tel, date_login_ak,
+    date_last_login_ak, date_login_aml, date_login_am, date_last_login_aml,
+    date_last_login_am, action, lite_full, ukd_chennel, action_date,
+    action_execution_chennel)
+    VALUES ('%(cus)s', '%(code_pu)s', '%(pu)s', '%(email)s', '%(tel)s',
+     '%(date_login_ak)s', '%(date_last_login_ak)s', '%(date_login_aml)s',
+     '%(date_login_am)s', '%(date_last_login_aml)s', '%(date_last_login_am)s',
+     '%(action)s', '%(lite_full)s', '%(ukd_chennel)s', '%(action_date)s',
+     '%(action_execution_chennel)s')
+    """ % {"cus": cus, "code_pu": code_pu, "pu": pu, "email": email, "tel": tel,
+           "date_login_ak": date_login_ak, "date_last_login_ak": date_last_login_ak,
+           "date_login_aml": date_login_aml, "date_login_am": date_login_am,
+           "date_last_login_aml": date_last_login_aml, "date_last_login_am": date_last_login_am,
+           "action": action, "lite_full": lite_full, "ukd_chennel": ukd_chennel,
+           "action_date": action_date, "action_execution_chennel": action_execution_chennel}
+    print("I'm here!")
 
-    print ("pika-pika: ", pikachu)
+    # исполняем SQL-запрос
+    cursor.execute(sql)
+    # применяем изменения к базе данных
+    db.commit()
 
-    print("jan:", jan)
-    print("feb:", feb)
-    print("mar:", mar)
-    print("apr:", apr)
-    print("may:", may)
-    print("jun:", jun)
-    print("jul:", jul)
-    print("aug:", aug)
-    print("sep:", sep)
-    print("okt:", okt)
-    print("nov:", nov)
+# закрываем соединение с базой данных
+db.close()
+# закрываем файл
+f.close()
