@@ -40,13 +40,13 @@ cursor = db.cursor()
 # открываем исходный csv-файл
 f = open("Vulpix.csv", "r")
 # представляем его в виде массива строк
-lines = f.readlines()
-
-for i, line in enumerate(lines):
+#lines = f.readlines()
+i = 0
+for line in f:
     # извлекаем данные из строки
     if i == 0:
-        continue
-
+      	i = i + 1
+	continue
     cus, code_pu, pu, email, tel, date_login_ak, date_last_login_ak, date_login_aml, date_login_am, \
     date_last_login_aml, date_last_login_am, action, lite_full, ukd_chennel, \
     action_date, action_execution_chennel = unpack_line(line)
