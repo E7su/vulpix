@@ -4,7 +4,7 @@ USE `Vulpix`;
 --
 -- Host: localhost    Database: Vulpix
 -- ------------------------------------------------------
--- Server version	5.5.50-0+deb8u1
+-- Server version	5.7.13-0ubuntu0.16.04.2
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -18,13 +18,13 @@ USE `Vulpix`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `Vulpix`
+-- Table structure for table `Vulpix_2`
 --
 
-DROP TABLE IF EXISTS `Vulpix`;
+DROP TABLE IF EXISTS `Vulpix_2`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `Vulpix` (
+CREATE TABLE `Vulpix_2` (
   `cus` varchar(20) DEFAULT NULL,
   `code_pu` varchar(255) DEFAULT NULL,
   `pu` varchar(255) DEFAULT NULL,
@@ -54,4 +54,4 @@ CREATE TABLE `Vulpix` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-08-20 15:36:19
+-- Dump completed on 2016-08-30 17:51:45
