@@ -36,7 +36,7 @@ CREATE TABLE `Vulpix` (
   `date_login_am` datetime DEFAULT NULL,
   `date_last_login_aml` datetime DEFAULT NULL,
   `date_last_login_am` datetime DEFAULT NULL,
-  `action` varchar(255) DEFAULT NULL,
+  `actions` varchar(255) DEFAULT NULL,
   `lite_full` varchar(255) DEFAULT NULL,
   `ukd_chennel` varchar(255) DEFAULT NULL,
   `action_date` datetime DEFAULT NULL,
